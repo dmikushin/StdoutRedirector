@@ -55,6 +55,8 @@ static void createWinPipe(HANDLE &hRead, HANDLE &hWrite)
 StdoutRedirector::StdoutRedirector(QObject *parent, ProcessChannels channels) :
     QObject(parent), m_channels(channels)
 {
+    setvbuf(stdout, NULL, _IONBF, 0);
+    setvbuf(stderr, NULL, _IONBF, 0);
 #ifdef Q_OS_WIN
     createWinPipe(hRead, hWrite);
     if (m_channels & StandardOutput)
